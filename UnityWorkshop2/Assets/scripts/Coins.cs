@@ -4,6 +4,7 @@ using UnityEngine;
 public class Coins : MonoBehaviour
 {
     private ScoreManager scoreManager;
+    public AudioSource audioSource;
 
     void Start()
     {
@@ -15,6 +16,7 @@ public class Coins : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             Debug.Log("Hit");
+            audioSource.Play();
             gameObject.SetActive(false);
             scoreManager.AddPoint();
         }
