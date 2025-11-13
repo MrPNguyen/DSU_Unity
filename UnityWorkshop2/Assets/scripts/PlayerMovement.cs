@@ -33,6 +33,8 @@ public class PlayerMovement : MonoBehaviour
     private bool wasGrounded;
     private bool isGrounded;
     [SerializeField] private Animator animator;
+
+    public Vector3 originalPosition;
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -41,9 +43,13 @@ public class PlayerMovement : MonoBehaviour
         // Set gravity scale to 0 so player won't "fall"
         rb.gravityScale = 0;
         animator = GetComponent<Animator>();
+        originalPosition = transform.position;
+        Debug.Log(originalPosition);
     }
     void Update()
     {
+        bool jump = animator.GetBool("hasJumped");
+        Debug.Log(jump);
         velocity = TranslateInputToVelocity(moveInput);
         // Apply jump-input:
         if (jumpInput && wasGrounded)
@@ -57,13 +63,16 @@ public class PlayerMovement : MonoBehaviour
             if (velocity.y < 0)
             {
                 // Has fallen. Play fall sound and/or trigger fall animation etc
-                animator.SetBool("hasLanded", true);
+                animator.SetBool("hasJumped", false);
             }
-            else
+            else if (velocity.y > 0)
             {
                 // Has jumped. Play jump sound and/or trigger jump animation etc
                 animator.SetBool("hasJumped", true);
-
+            }
+            else
+            {
+                animator.SetBool("hasJumped", false);
             }
         }
         // Check if character gained contact with ground this frame
@@ -71,7 +80,7 @@ public class PlayerMovement : MonoBehaviour
         {
             jumpReleased = false;
             // Has landed, play landing sound and trigger landing animation
-            animator.SetBool("hasLanded", true);
+            animator.SetBool("hasJumped", false);
         }
         wasGrounded = isGrounded;
         // Flip sprite according to direction (if a sprite renderer has been assigned)
@@ -169,7 +178,6 @@ public class PlayerMovement : MonoBehaviour
     { 
         if (context.started && controlEnabled)
         {
-            Debug.Log("Jump!");
             jumpInput = true;
             jumpReleased = false;
         }
