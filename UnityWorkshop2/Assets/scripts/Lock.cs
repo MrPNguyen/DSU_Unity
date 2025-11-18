@@ -13,6 +13,12 @@ public class Lock : MonoBehaviour
         if (InRange)
         {
             canvas.SetActive(true);
+            if (Input.GetKeyDown(KeyCode.E) && playerManager.KeyCount > 0)
+            {
+                Debug.Log("Key pressed");
+                barricade.SetActive(false);
+                canvas.SetActive(false);
+            }
         }
         else
         {
@@ -24,10 +30,7 @@ public class Lock : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             InRange = true;
-            if (Input.GetKeyDown(KeyCode.E) && playerManager.KeyCount != 0)
-            {
-                barricade.SetActive(false);
-            }
+           
         }
     }
 

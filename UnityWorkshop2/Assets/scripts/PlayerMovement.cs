@@ -3,6 +3,30 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+/*
+ private Rigidbody2D rb;
+    private InputAction move;
+    private InputAction jump;
+    [SerializeField] private LayerMask Ground;
+
+    void Start()
+    {
+        rb = GetComponent<Rigidbody2D>();
+        move = InputSystem.actions.FindAction("Move");
+        jump = InputSystem.actions.FindAction("Jump");
+    }
+    void FixedUpdate()
+    {
+        Vector2 input = move.ReadValue<Vector2>() * 5.0f;
+        if (Physics2D.Raycast(transform.position, Vector2.down, transform.localScale.y * 0.6f, Ground) && jump.IsPressed())
+        {
+            input.y = 9.82f;
+        }
+        rb.linearVelocity = input;
+    }
+ */
+
+//TODO: Find new movement code cuz this code is too complicated :(
 /////////////// INFORMATION ///////////////
 // This script automatically adds a Rigidbody2D, CapsuleCollider2D and
 //CircleCollider2D component in the inspector.
@@ -49,7 +73,6 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         bool jump = animator.GetBool("hasJumped");
-        Debug.Log(jump);
         velocity = TranslateInputToVelocity(moveInput);
         // Apply jump-input:
         if (jumpInput && wasGrounded)

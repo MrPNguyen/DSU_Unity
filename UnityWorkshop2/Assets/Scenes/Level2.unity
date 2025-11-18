@@ -1291,13 +1291,13 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 766089449}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: 0.008727774, z: -0, w: 0.9999619}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1796508630}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 1, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
@@ -1879,7 +1879,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Actions: {fileID: -944628639613478452, guid: b22fec231bf778c4582e72c35f53d35a, type: 3}
-  m_NotificationBehavior: 2
+  m_NotificationBehavior: 0
   m_UIInputModule: {fileID: 0}
   m_DeviceLostEvent:
     m_PersistentCalls:
@@ -1923,9 +1923,13 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 629e5cb1-0315-426b-abe6-aba28524945b
     m_ActionName: 'Player/Jump[/Keyboard/space]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: a1169b17-e9a7-4526-a138-f93c2bc46dd2
+    m_ActionName: 'Player/Interact[/Keyboard/e]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
-  m_DefaultActionMap: Player
+  m_DefaultActionMap: 2a87e641-ad46-4a9f-b208-76ae6a4cbf78
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
 --- !u!114 &1057044825
@@ -1940,12 +1944,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcf4ff4805cfcc64c8908920abe0db03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 10
-  jumpForce: 10
-  spriteRenderer: {fileID: 1057044829}
-  jumpReleased: 0
-  animator: {fileID: 1057044823}
-  originalPosition: {x: 0, y: 0, z: 0}
+  Ground:
+    serializedVersion: 2
+    m_Bits: 1
 --- !u!70 &1057044826
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -4437,7 +4438,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: -0.3709066}
+  m_Offset: {x: 0, y: -0.56068635}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -4447,7 +4448,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 0.31621695}
+  m_Size: {x: 1, y: 0.23714209}
   m_EdgeRadius: 0
 --- !u!61 &1192493873
 BoxCollider2D:
@@ -4483,7 +4484,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0.14849949}
+  m_Offset: {x: 0, y: 0.03779459}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -4493,7 +4494,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 0.703001}
+  m_Size: {x: 1, y: 0.9244108}
   m_EdgeRadius: 0
 --- !u!114 &1192493874
 MonoBehaviour:
@@ -4508,6 +4509,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 2111096620}
+  key: {fileID: 1680586781}
 --- !u!1 &1590682949
 GameObject:
   m_ObjectHideFlags: 0
@@ -5192,8 +5194,8 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.0049364567, y: 0}
-  m_Radius: 0.39962554
+  m_Offset: {x: 0.004936576, y: 0.07116747}
+  m_Radius: 0.19403064
 --- !u!1 &1796508626
 GameObject:
   m_ObjectHideFlags: 0

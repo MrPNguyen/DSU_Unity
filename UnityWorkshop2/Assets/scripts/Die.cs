@@ -8,7 +8,8 @@ public class Die : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            player.transform.position = player.originalPosition;
+            //TODO: When player dies send back to originalPosition
+            player.transform.position = Vector2.zero;
         }
     }
 }
