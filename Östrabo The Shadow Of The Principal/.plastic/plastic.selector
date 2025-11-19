@@ -1,0 +1,4 @@
+repository "Östrabo The Shadow Of The Principal/Östrabo The Shadow Of The Principle@5773684318264@cloud"
+  path "/"
+    br "/main"
+    co "/main"
