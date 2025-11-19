@@ -2,10 +2,9 @@ using UnityEngine;
 
 public class Key : MonoBehaviour
 {
-    public GameObject Door;
-    public GameObject openDoor;
     public AudioSource doorAudio;
     public AudioSource KeyAudio;
+    public Animator animator;
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -15,8 +14,7 @@ public class Key : MonoBehaviour
             KeyAudio.Play();
             doorAudio.Play();
             gameObject.SetActive(false);
-            Door.SetActive(false);
-            openDoor.SetActive(true);
+            animator.SetBool("doorOpened", true);
         }
     }
 }
