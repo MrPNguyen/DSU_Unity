@@ -30,7 +30,6 @@ public class Lock : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             InRange = true;
-           
         }
     }
 

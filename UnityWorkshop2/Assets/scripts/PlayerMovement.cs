@@ -3,211 +3,93 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-/*
- private Rigidbody2D rb;
-    private InputAction move;
-    private InputAction jump;
-    [SerializeField] private LayerMask Ground;
 
-    void Start()
-    {
-        rb = GetComponent<Rigidbody2D>();
-        move = InputSystem.actions.FindAction("Move");
-        jump = InputSystem.actions.FindAction("Jump");
-    }
-    void FixedUpdate()
-    {
-        Vector2 input = move.ReadValue<Vector2>() * 5.0f;
-        if (Physics2D.Raycast(transform.position, Vector2.down, transform.localScale.y * 0.6f, Ground) && jump.IsPressed())
-        {
-            input.y = 9.82f;
-        }
-        rb.linearVelocity = input;
-    }
- */
-
-//TODO: Find new movement code cuz this code is too complicated :(
-/////////////// INFORMATION ///////////////
-// This script automatically adds a Rigidbody2D, CapsuleCollider2D and
-//CircleCollider2D component in the inspector.
-// The Rigidbody2D component should (probably) have some constraints: Freeze
-//Rotation Z
-// The Circle Collider 2D should be set to "is trigger", resized and moved to a
-//proper position for ground check.
-// The following components are also needed: Player Input
-// Gravity for the project is set in Unity at Edit -> Project Settings -> Physics2D
-//   -> Gravity Y
-[RequireComponent(typeof(Rigidbody2D), typeof(CircleCollider2D),
-    typeof(CapsuleCollider2D))]
+//Code Source: Game Code Library: "2D Platformer Unity"
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] private float maxSpeed = 10f;
-    [SerializeField] private float jumpForce = 10f;
-    // [SerializeField] private float gravityMultiplier = 1; //unused
-    [SerializeField] private SpriteRenderer spriteRenderer;
-    public bool controlEnabled { get; set; } = true; // You can edit this variable from Unity Events
-    private Vector2 moveInput;
     private Rigidbody2D rb;
-    // Platformer specific variables
-    private CircleCollider2D groundCheckCollider;
-    private LayerMask groundLayer = ~0; // ~0 is referring to EVERY layer. Do you want a specific layer? Serialize the variable and assign the Layer of your choice.
-    private Vector2 velocity;
-    private bool jumpInput;
-    public bool jumpReleased;
-    private bool wasGrounded;
-    private bool isGrounded;
-    [SerializeField] private Animator animator;
 
-    public Vector3 originalPosition;
-    void Awake()
+    [Header("Movement")]
+    public float moveSpeed = 5f;
+    float horizontalMovement;
+
+    [Header("Jump")]
+    public float jumpForce = 10f;
+    
+    [Header("GroundCheck")]
+    public Transform groundCheck;
+    public Vector2 groundCheckSize = new Vector2(0.5f, 0.05f);
+    public LayerMask whatIsGround;
+    
+    private SpriteRenderer spriteRenderer;
+    private Animator animator;
+    
+    void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
-        groundCheckCollider = GetComponent<CircleCollider2D>();
-        groundCheckCollider.isTrigger = true;
-        // Set gravity scale to 0 so player won't "fall"
-        rb.gravityScale = 0;
-        animator = GetComponent<Animator>();
-        originalPosition = transform.position;
-        Debug.Log(originalPosition);
+         rb = GetComponent<Rigidbody2D>();
+         spriteRenderer = GetComponent<SpriteRenderer>();
+         animator = GetComponent<Animator>();
     }
+
     void Update()
     {
-        bool jump = animator.GetBool("hasJumped");
-        velocity = TranslateInputToVelocity(moveInput);
-        // Apply jump-input:
-        if (jumpInput && wasGrounded)
+        rb.linearVelocity = new Vector2(horizontalMovement * moveSpeed, rb.linearVelocity.y);
+        if (rb.linearVelocity.x < 0)
         {
-            velocity.y = jumpForce;
-            jumpInput = false;
-        }
-        // Check if character lost contact with ground this frame
-        if (wasGrounded == true && isGrounded == false)
-        {
-            if (velocity.y < 0)
-            {
-                // Has fallen. Play fall sound and/or trigger fall animation etc
-                animator.SetBool("hasJumped", false);
-            }
-            else if (velocity.y > 0)
-            {
-                // Has jumped. Play jump sound and/or trigger jump animation etc
-                animator.SetBool("hasJumped", true);
-            }
-            else
-            {
-                animator.SetBool("hasJumped", false);
-            }
-        }
-        // Check if character gained contact with ground this frame
-        else if (wasGrounded == false && isGrounded == true)
-        {
-            jumpReleased = false;
-            // Has landed, play landing sound and trigger landing animation
-            animator.SetBool("hasJumped", false);
-        }
-        wasGrounded = isGrounded;
-        // Flip sprite according to direction (if a sprite renderer has been assigned)
-        if (spriteRenderer)
-        {
-            if (moveInput.x > 0.01f)
-                spriteRenderer.flipX = false;
-            else if (moveInput.x < -0.01f)
-                spriteRenderer.flipX = true;
-        }
-    }
-    private void FixedUpdate()
-    {
-        isGrounded = IsGrounded();
-        ApplyGravity();
-        rb.linearVelocity = velocity; 
-        // Write movement animation code here. (Suggestion: send your current velocity into the Animator for both the x- and y-axis.)
-        if (velocity.x < 0)
-        {
+            spriteRenderer.flipX = true;
             animator.SetBool("isMoving", true);
         }
-        else if (velocity.x > 0)
+        else if (rb.linearVelocity.x > 0)
         {
+            spriteRenderer.flipX = false;
             animator.SetBool("isMoving", true);
+
         }
         else
         {
+            spriteRenderer.flipX = false;
             animator.SetBool("isMoving", false);
         }
     }
-    private bool IsGrounded()
+
+    public void Move(InputAction.CallbackContext context)
     {
-        // Is our groundCheckCollider touching the groundLayer? If so, return the value "true"
-        if (groundCheckCollider.IsTouchingLayers(groundLayer))
+        horizontalMovement = context.ReadValue<Vector2>().x;
+    }
+
+    public void Jump(InputAction.CallbackContext context)
+    {
+        if (isGrounded())
+        {
+            if (context.performed)
+            {
+                rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
+                animator.SetBool("hasJumped", true);
+
+            }
+            else if (context.canceled)
+            {
+                rb.linearVelocity = new Vector2(rb.linearVelocity.x, rb.linearVelocity.y * 0.5f);
+                animator.SetBool("hasJumped", true);
+            }
+        }
+        else
+        {
+            animator.SetBool("hasJumped", false);
+        }
+    }
+
+    private bool isGrounded()
+    {
+        if (Physics2D.OverlapBox(groundCheck.position, groundCheckSize, 0, whatIsGround))
         {
             return true;
         }
-        else
-        {
-            return false;
-        }
+        return false;
     }
-    private void ApplyGravity()
+    private void OnDrawGizmosSelected()
     {
-        // Applies a set gravity for when player is grounded
-        if (isGrounded && velocity.y < 0.0f)
-        {
-            velocity.y = -4.0f;
-        }
-        // Updates fall speed with gravity if object isn't grounded
-        else
-        {
-            // Is Jumping upwards
-            if (velocity.y > 0)
-            {
-                float deceleration = 1;
-                if (jumpReleased) // shorter jump height when releasing the jump-key
-                {
-                    deceleration = 5;
-                }
-                // you can add a gravity multiplier here... but how?
-                velocity.y += Physics2D.gravity.y * deceleration * Time.deltaTime;
-                // Is Falling
-            }
-            else
-            {
-                // you can add a gravity multiplier here... but how?
-                velocity.y += Physics2D.gravity.y * Time.deltaTime;
-            }
-        }
-
-       
-    }
-    Vector2 TranslateInputToVelocity(Vector2 input)
-    {
-        // Make the character move along the X-axis
-        return new Vector2(input.x * maxSpeed, velocity.y);
-    }
-    // Handle Move-input
-    // This method can be triggered through the UnityEvent in PlayerInput
-    public void OnMove(InputAction.CallbackContext context)
-    {
-        if (controlEnabled)
-        {
-            moveInput = context.ReadValue<Vector2>().normalized;
-        }
-        else
-        {
-            moveInput = Vector2.zero;
-        }
-    }
-    // Handle Jump-input
-    // This method can be triggered through the UnityEvent in PlayerInput
-    public void OnJump(InputAction.CallbackContext context)
-    { 
-        if (context.started && controlEnabled)
-        {
-            jumpInput = true;
-            jumpReleased = false;
-        }
-        if (context.canceled && controlEnabled)
-        {
-            jumpReleased = true;
-            jumpInput = false;
-        }
+        Gizmos.color = Color.white;
+        Gizmos.DrawWireCube(groundCheck.position, groundCheckSize);
     }
 }

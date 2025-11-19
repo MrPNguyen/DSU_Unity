@@ -315,7 +315,7 @@ RectTransform:
   m_Children:
   - {fileID: 687318840}
   - {fileID: 86352692}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1057044830}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -538,7 +538,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -1831,7 +1831,6 @@ GameObject:
   - component: {fileID: 1057044830}
   - component: {fileID: 1057044829}
   - component: {fileID: 1057044828}
-  - component: {fileID: 1057044827}
   - component: {fileID: 1057044826}
   - component: {fileID: 1057044825}
   - component: {fileID: 1057044824}
@@ -1879,7 +1878,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Actions: {fileID: -944628639613478452, guid: b22fec231bf778c4582e72c35f53d35a, type: 3}
-  m_NotificationBehavior: 0
+  m_NotificationBehavior: 2
   m_UIInputModule: {fileID: 0}
   m_DeviceLostEvent:
     m_PersistentCalls:
@@ -1895,7 +1894,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1057044825}
         m_TargetAssemblyTypeName: PlayerMovement, Assembly-CSharp
-        m_MethodName: OnMove
+        m_MethodName: Move
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1911,7 +1910,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1057044825}
         m_TargetAssemblyTypeName: PlayerMovement, Assembly-CSharp
-        m_MethodName: OnJump
+        m_MethodName: Jump
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1929,7 +1928,7 @@ MonoBehaviour:
     m_ActionName: 'Player/Interact[/Keyboard/e]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
-  m_DefaultActionMap: 2a87e641-ad46-4a9f-b208-76ae6a4cbf78
+  m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
 --- !u!114 &1057044825
@@ -1944,9 +1943,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcf4ff4805cfcc64c8908920abe0db03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Ground:
+  moveSpeed: 5
+  jumpForce: 5
+  groundCheck: {fileID: 1149366069}
+  groundCheckSize: {x: 0.45, y: 0.03}
+  whatIsGround:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 8
 --- !u!70 &1057044826
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -1984,42 +1987,6 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 0.8, y: 0.99}
   m_Direction: 0
---- !u!58 &1057044827
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1057044822}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_CompositeOperation: 0
-  m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
-  m_Radius: 0.495
 --- !u!50 &1057044828
 Rigidbody2D:
   serializedVersion: 5
@@ -2036,7 +2003,7 @@ Rigidbody2D:
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 71c011ab853fb014eb5b25c666c984c0, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -2114,7 +2081,9 @@ Transform:
   m_LocalPosition: {x: -5.5, y: -0.92, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1149366069}
+  - {fileID: 360814130}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1057044831
@@ -2356,6 +2325,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1137271466}
   m_CullTransparentMesh: 1
+--- !u!1 &1149366068
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1149366069}
+  m_Layer: 0
+  m_Name: GroundCheck
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1149366069
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1149366068}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.484, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1057044830}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1181099163
 GameObject:
   m_ObjectHideFlags: 0
@@ -2370,7 +2370,7 @@ GameObject:
   - component: {fileID: 1181099171}
   - component: {fileID: 1181099170}
   - component: {fileID: 1181099169}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6545,7 +6545,6 @@ SceneRoots:
   - {fileID: 1814015208}
   - {fileID: 294450515}
   - {fileID: 1057044830}
-  - {fileID: 360814130}
   - {fileID: 1848197238}
   - {fileID: 941410943}
   - {fileID: 1804514129}
