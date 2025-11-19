@@ -23,6 +23,8 @@ public class PlayerMovement : MonoBehaviour
     
     private SpriteRenderer spriteRenderer;
     private Animator animator;
+
+    public bool canMove = true;
     
     void Start()
     {
@@ -54,28 +56,35 @@ public class PlayerMovement : MonoBehaviour
 
     public void Move(InputAction.CallbackContext context)
     {
-        horizontalMovement = context.ReadValue<Vector2>().x;
+        if (canMove)
+        {
+            horizontalMovement = context.ReadValue<Vector2>().x;
+            
+        }
     }
 
     public void Jump(InputAction.CallbackContext context)
     {
-        if (isGrounded())
+        if (canMove)
         {
-            if (context.performed)
+            if (isGrounded())
             {
-                rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
-                animator.SetBool("hasJumped", true);
+                if (context.performed)
+                {
+                    rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
+                    animator.SetBool("hasJumped", true);
 
+                }
+                else if (context.canceled)
+                {
+                    rb.linearVelocity = new Vector2(rb.linearVelocity.x, rb.linearVelocity.y * 0.5f);
+                    animator.SetBool("hasJumped", true);
+                }
             }
-            else if (context.canceled)
+            else
             {
-                rb.linearVelocity = new Vector2(rb.linearVelocity.x, rb.linearVelocity.y * 0.5f);
-                animator.SetBool("hasJumped", true);
+                animator.SetBool("hasJumped", false);
             }
-        }
-        else
-        {
-            animator.SetBool("hasJumped", false);
         }
     }
 
