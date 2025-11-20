@@ -312,6 +312,17 @@ CapsuleCollider2D:
   m_Offset: {x: 4.468779, y: -3.166516}
   m_Size: {x: 0.9847212, y: 2.2504678}
   m_Direction: 0
+--- !u!114 &115772933 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8764706289504532597, guid: 30c2ad8720ff5d14b80696555bec8d7f, type: 3}
+  m_PrefabInstance: {fileID: 7659063512551337512}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 115772929}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ab62729a18db9d49921710ffe334c10, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &169168862
 GameObject:
   m_ObjectHideFlags: 0
@@ -1107,14 +1118,14 @@ RectTransform:
   m_GameObject: {fileID: 454371490}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.02, y: 0.02, z: 0.02}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 2023207354}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -250, y: -3}
+  m_AnchoredPosition: {x: -1.45, y: 0.75}
   m_SizeDelta: {x: 25, y: 25}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &454371492
@@ -2035,8 +2046,36 @@ MonoBehaviour:
     m_ActionId: 629e5cb1-0315-426b-abe6-aba28524945b
     m_ActionName: 'Player/Jump[/Keyboard/space]'
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1057044825}
+        m_TargetAssemblyTypeName: PlayerMovement, Assembly-CSharp
+        m_MethodName: Dash
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: a1169b17-e9a7-4526-a138-f93c2bc46dd2
+    m_ActionName: 'Player/Interact[/Keyboard/e]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 115772933}
+        m_TargetAssemblyTypeName: InteractEvent, Assembly-CSharp
+        m_MethodName: Interact
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 0177ff73-c448-4809-8d22-265cc6fd4d0a
     m_ActionName: 'Player/Interact[/Keyboard/e]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
@@ -2063,6 +2102,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   canMove: 1
+  DashPower: 5
 --- !u!70 &1057044826
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -2197,7 +2237,6 @@ Transform:
   m_Children:
   - {fileID: 1149366069}
   - {fileID: 360814130}
-  - {fileID: 2023207354}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1057044831
@@ -5153,7 +5192,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 99, y: 337}
+  m_AnchoredPosition: {x: 99, y: 173}
   m_SizeDelta: {x: 732.5673, y: 161.9853}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!95 &1658066599
@@ -6259,14 +6298,14 @@ RectTransform:
   m_GameObject: {fileID: 1938284946}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.02, y: 0.02, z: 0.02}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 2023207354}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -133, y: -19.4}
+  m_AnchoredPosition: {x: 0, y: 0.75}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1938284948
@@ -6323,8 +6362,8 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -6380,6 +6419,7 @@ GameObject:
   - component: {fileID: 2023207357}
   - component: {fileID: 2023207356}
   - component: {fileID: 2023207355}
+  - component: {fileID: 2023207358}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -6396,18 +6436,18 @@ RectTransform:
   m_GameObject: {fileID: 2023207353}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 454371491}
   - {fileID: 1938284947}
-  m_Father: {fileID: 1057044830}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 550.5, y: 252.5}
+  m_SizeDelta: {x: 1101, y: 505}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2023207355
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6447,7 +6487,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!223 &2023207357
 Canvas:
   m_ObjectHideFlags: 0
@@ -6457,7 +6497,7 @@ Canvas:
   m_GameObject: {fileID: 2023207353}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
+  m_RenderMode: 2
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
@@ -6471,6 +6511,20 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!114 &2023207358
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2023207353}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f3b307e5a5d35f42b58894e683faae1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 1057044830}
+  offset: {x: 0, y: 0, z: 0}
 --- !u!1 &2033670496
 GameObject:
   m_ObjectHideFlags: 0
@@ -7071,6 +7125,7 @@ SceneRoots:
   - {fileID: 1814015208}
   - {fileID: 294450515}
   - {fileID: 1057044830}
+  - {fileID: 2023207354}
   - {fileID: 1848197238}
   - {fileID: 941410943}
   - {fileID: 1804514129}
