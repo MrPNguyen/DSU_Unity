@@ -135,6 +135,7 @@ public class DialogueManager : MonoBehaviour
             audioSource.PlayOneShot(dialogueTypingSoundClip);
         }
     }
+    
     public void EndDialogue()
     {
         Debug.Log("EndDialogue called. skipExitAnimation: " + skipExitAnimation);

@@ -24,9 +24,24 @@ public class Dialogue
 public class DialogueTrigger : MonoBehaviour
 {
     public Dialogue dialogue;
+    public Animator animator;
+    private bool hasDialogueAlreadyBegun = false;
+
+    void Start()
+    {
+        hasDialogueAlreadyBegun = animator.GetBool("started");
+    }
 
     public void TriggerDialogue()
     {
-        FindObjectOfType<DialogueManager>().StartDialogue(dialogue);
+        if (hasDialogueAlreadyBegun)
+        {
+            
+        }
+        else
+        {
+            FindObjectOfType<DialogueManager>().StartDialogue(dialogue);
+
+        }
     }
 }

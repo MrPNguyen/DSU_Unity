@@ -25,7 +25,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Interact",
+                    "name": "Dash",
                     "type": "Button",
                     "id": "a1169b17-e9a7-4526-a138-f93c2bc46dd2",
                     "expectedControlType": "",
@@ -108,7 +108,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Interact",
+                    "action": "Dash",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
