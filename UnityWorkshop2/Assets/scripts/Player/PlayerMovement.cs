@@ -25,7 +25,8 @@ public class PlayerMovement : MonoBehaviour
     private Animator animator;
 
     public bool canMove = true;
-    
+
+    public float DashPower = 5f;
     void Start()
     {
          rb = GetComponent<Rigidbody2D>();
@@ -58,8 +59,8 @@ public class PlayerMovement : MonoBehaviour
     {
         if (canMove)
         {
+           
             horizontalMovement = context.ReadValue<Vector2>().x;
-            
         }
     }
 
@@ -84,6 +85,21 @@ public class PlayerMovement : MonoBehaviour
             else
             {
                 animator.SetBool("hasJumped", false);
+            }
+        }
+    }
+
+    public void Dash(InputAction.CallbackContext context)
+    {
+        if (canMove)
+        {
+            if (spriteRenderer.flipX == false)
+            {
+                horizontalMovement = context.ReadValue<Vector2>().x;
+            }
+            else
+            {
+                horizontalMovement = context.ReadValue<Vector2>().x - DashPower;
             }
         }
     }

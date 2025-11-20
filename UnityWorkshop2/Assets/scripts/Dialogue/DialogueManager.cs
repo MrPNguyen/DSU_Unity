@@ -95,6 +95,11 @@ public class DialogueManager : MonoBehaviour
 
         StartCoroutine(TypeSentence(currentLine));
         
+        if (lines.Count == 0)
+        {
+            FindObjectOfType<DialogueEnd>().StartTransitionEarly();
+        }
+        
     }
 
     IEnumerator TypeSentence(DialogueLine dialogueLine)
@@ -135,7 +140,7 @@ public class DialogueManager : MonoBehaviour
         else
         {
             Debug.Log("Playing exit animation.");
-            animator.SetBool("IsOpen", false);
+            animator.SetBool("started", false);
         }
         
         if (playerMovement != null)
