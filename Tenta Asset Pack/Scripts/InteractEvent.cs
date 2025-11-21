@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.InputSystem;
 
 public class InteractEvent : MonoBehaviour
 {
@@ -8,22 +9,15 @@ public class InteractEvent : MonoBehaviour
     public KeyCode interactkey;
     public UnityEvent interactAction;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
+    public void Interact(InputAction.CallbackContext context)
     {
         if (isInRange)
         {
-            if (Input.GetKeyDown(interactkey))
+            if (context.performed)
             {
                 interactAction.Invoke();
             }
-        }   
+        }
     }
     
     private void OnTriggerEnter2D(Collider2D collision)
