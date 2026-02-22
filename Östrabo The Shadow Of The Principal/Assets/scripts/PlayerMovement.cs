@@ -56,7 +56,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
        
-            rb.linearVelocity = movementDirection * moveSpeed;
+        rb.linearVelocity = movementDirection * moveSpeed;
     }
 
     private void HandleAnimations()
