@@ -7,7 +7,7 @@ using Random = UnityEngine.Random;
 
 public class Clicker : MonoBehaviour
 {
-    public int Score;
+    public float Score;
     public int gain;
     [SerializeField] private TMP_Text scoreText;
     [SerializeField] private GameObject gainText;
@@ -17,6 +17,17 @@ public class Clicker : MonoBehaviour
     private void Start()
     {
         gain = 1;
+        Score = 200f;
+    }
+
+    private void Update()
+    {
+        scoreText.text = Mathf.FloorToInt(Score).ToString();
+        if (Score < 0)
+        {
+            Score = 0;
+        }
+        Debug.Log(Score);
     }
 
     public void ScoreGain()
